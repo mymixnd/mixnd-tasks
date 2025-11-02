@@ -1,4 +1,4 @@
-import { PRIVATE_STRIPE_API_KEY } from "$env/static/private"
+import { env } from "$env/dynamic/private"
 import { error, redirect } from "@sveltejs/kit"
 import Stripe from "stripe"
 import {
@@ -6,7 +6,7 @@ import {
   getOrCreateCustomerId,
 } from "../../subscription_helpers.server"
 import type { PageServerLoad } from "./$types"
-const stripe = new Stripe(PRIVATE_STRIPE_API_KEY, { apiVersion: "2023-08-16" })
+const stripe = new Stripe(env.PRIVATE_STRIPE_API_KEY!, { apiVersion: "2023-08-16" })
 
 export const load: PageServerLoad = async ({
   params,
