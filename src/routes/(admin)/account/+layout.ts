@@ -34,7 +34,7 @@ export const load = async ({ fetch, data, depends, url }) => {
 
   const { session, user } = await load_helper(data.session, supabase)
   if (!session || !user) {
-    redirect(303, "/login")
+    throw redirect(303, "/login")
   }
 
   const { data: profile } = await supabase
@@ -54,7 +54,7 @@ export const load = async ({ fetch, data, depends, url }) => {
     url.pathname !== signOutPath &&
     CreateProfileStep
   ) {
-    redirect(303, createProfilePath)
+    throw redirect(303, createProfilePath)
   }
 
   return {

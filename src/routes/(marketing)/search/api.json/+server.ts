@@ -10,5 +10,5 @@ export async function GET() {
       headers: { "Content-Type": "application/json" },
     })
   }
-  error(404, "Search index not found")
+  throw error(404, "Search index not found")
 }

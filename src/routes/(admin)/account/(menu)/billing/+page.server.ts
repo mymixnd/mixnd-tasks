@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({
 }) => {
   const { session, user } = await safeGetSession()
   if (!session || !user?.id) {
-    redirect(303, "/login")
+    throw redirect(303, "/login")
   }
 
   const { error: idError, customerId } = await getOrCreateCustomerId({
@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({
   })
   if (idError || !customerId) {
     console.error("Error creating customer id", idError)
-    error(500, {
+    throw error(500, {
       message: "Unknown error. If issue persists, please contact us.",
     })
   }
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async ({
   })
   if (fetchErr) {
     console.error("Error fetching subscription", fetchErr)
-    error(500, {
+    throw error(500, {
       message: "Unknown error. If issue persists, please contact us.",
     })
   }
