@@ -1,4 +1,4 @@
-import { Session, SupabaseClient, type AMREntry } from "@supabase/supabase-js"
+import { Session, SupabaseClient, User, type AMREntry } from "@supabase/supabase-js"
 import { Database } from "./DatabaseDefinitions"
 
 // See https://kit.svelte.dev/docs/types#app
