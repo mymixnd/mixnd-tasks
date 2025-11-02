@@ -1,0 +1,19 @@
+[app]
+name = "mixnd-tasks"
+domain = "mixnd-tasks.mixnd.com"
+
+[infrastructure]
+vm = "localhost"
+coolify_url = "https://coolify.mixnd.com"
+coolify_app_uuid = "os440okk0kko4808o84k8c80"
+
+[github]
+repo = "mymixnd/mixnd-tasks"
+repo_url = "https://github.com/mymixnd/mixnd-tasks"
+
+[supabase]
+project_ref = "dbcmtxtvqyjxettkqgzt"
+project_url = "https://dbcmtxtvqyjxettkqgzt.supabase.co"
+
+[doppler]
+project = "mixnd-tasks"
