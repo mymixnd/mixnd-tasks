@@ -67,48 +67,20 @@
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Is this template free to use?
+            Can I change my plan later?
           </div>
           <div class="collapse-content">
-            <p>Yup! This template is free to use for any project.</p>
+            <p>Yes, you can upgrade or downgrade your plan at any time from your account settings.</p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Why does a free template have a pricing page?
+            How does billing work?
           </div>
           <div class="collapse-content">
             <p>
-              The pricing page is part of the boilerplate. It shows how the
-              pricing page integrates into the billing portal and the Stripe
-              Checkout flows.
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-lg font-medium">
-            What license is the template under?
-          </div>
-          <div class="collapse-content">
-            <p>The template is under the MIT license.</p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-lg font-medium">
-            Can I try out purchase flows without real a credit card?
-          </div>
-          <div class="collapse-content">
-            <p>
-              Our demo page <a href="https://saasstarter.work" class="link"
-                >SaasStarter.work</a
-              > has a functional demo page, using Stripe's test environment.
-            </p>
-            <p class="mt-4">
-              You can use the credit card number 4242 4242 4242 4242 with any
-              future expiry date to test the payment and upgrade flows.
+              Plans are billed monthly or annually depending on your selection. You can cancel anytime.
             </p>
           </div>
         </div>

@@ -86,11 +86,7 @@
         <li>Get a quote</li>
         <li>Answer any technical questions you have</li>
       </ul>
-      <p>Once you complete the form, we'll reach out to you! *</p>
-      <p class="text-sm pt-8">
-        *Not really for this demo page, but you should say something like that
-        😉
-      </p>
+      <p>Once you complete the form, we'll reach out to you!</p>
     </div>
   </div>
 
