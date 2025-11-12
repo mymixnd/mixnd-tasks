@@ -37,11 +37,33 @@ export const load: PageServerLoad = async ({
   const { primarySubscription } = await fetchSubscription({
     customerId,
   })
-  if (primarySubscription) {
-    // User already has plan, we shouldn't let them buy another
-    throw redirect(303, "/account/billing")
+
+  // If user has existing subscription, upgrade/downgrade it instead of creating new one
+  if (primarySubscription?.stripeSubscription) {
+    const currentSubscription = primarySubscription.stripeSubscription
+    const subscriptionItemId = currentSubscription.items.data[0].id
+
+    try {
+      // Update the subscription to the new price
+      await stripe.subscriptions.update(currentSubscription.id, {
+        items: [
+          {
+            id: subscriptionItemId,
+            price: params.slug,
+          },
+        ],
+        proration_behavior: 'always_invoice', // Stripe handles proration automatically
+      })
+    } catch (e) {
+      console.error("Error updating subscription", e)
+      throw error(500, "Unable to update subscription. If issue persists please contact us.")
+    }
+
+    // Redirect to billing page to show updated subscription (outside try-catch)
+    throw redirect(303, "/account/billing?updated=true")
   }
 
+  // No existing subscription - create new checkout session
   let checkoutUrl
   try {
     const stripeSession = await stripe.checkout.sessions.create({
@@ -53,7 +75,7 @@ export const load: PageServerLoad = async ({
       ],
       customer: customerId,
       mode: "subscription",
-      success_url: `${url.origin}/account`,
+      success_url: `${url.origin}/account/billing?subscribed=true`,
       cancel_url: `${url.origin}/account/billing`,
     })
     checkoutUrl = stripeSession.url
