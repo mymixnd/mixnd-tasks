@@ -72,7 +72,9 @@ async function handleSubscriptionChange(
 ) {
 	const customerId = subscription.customer as string
 	const status = subscription.status
-	const currentPeriodEnd = new Date(subscription.current_period_end * 1000)
+	const currentPeriodEnd = subscription.current_period_end
+		? new Date(subscription.current_period_end * 1000)
+		: null
 
 	// Find user by stripe customer ID
 	const { data: customer, error: customerError } = await supabaseServiceRole
@@ -92,7 +94,7 @@ async function handleSubscriptionChange(
 		.update({
 			subscription_status: status,
 			subscription_id: subscription.id,
-			current_period_end: currentPeriodEnd.toISOString(),
+			current_period_end: currentPeriodEnd ? currentPeriodEnd.toISOString() : null,
 			updated_at: new Date().toISOString()
 		})
 		.eq('user_id', customer.user_id)
