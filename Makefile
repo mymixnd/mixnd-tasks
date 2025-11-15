@@ -1,4 +1,4 @@
-.PHONY: dev build docker-build docker-run clean
+.PHONY: dev build test test-e2e test-all docker-build docker-run clean
 
 # Run dev server with Doppler secrets
 dev:
@@ -7,6 +7,17 @@ dev:
 # Build SvelteKit app locally
 build:
 	doppler run --project mixnd-tasks --config prd -- pnpm build
+
+# Run unit tests (vitest) - no secrets needed
+test:
+	pnpm test_run
+
+# Run E2E tests (playwright) - uses .env.test for fake credentials
+test-e2e:
+	pnpm test:e2e
+
+# Run all tests (unit + E2E)
+test-all: test test-e2e
 
 # Build Docker image (only PUBLIC_ vars needed at build time)
 docker-build:

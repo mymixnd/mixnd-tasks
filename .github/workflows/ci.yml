@@ -1,0 +1,52 @@
+name: CI/CD
+
+on: [push, pull_request]
+
+env:
+  PUBLIC_SUPABASE_URL: "https://fake_test_url.supabase.co"
+  PUBLIC_SUPABASE_ANON_KEY: "fake_anon_key"
+  PRIVATE_SUPABASE_SERVICE_ROLE: "fake_service_role"
+  PRIVATE_STRIPE_API_KEY: "fake_stripe_api_key"
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm test_run
+
+      - name: Build
+        run: pnpm build
+
+      # TODO: Add E2E tests here later
+      # - name: Run E2E tests
+      #   run: pnpm test:e2e
+
+  deploy:
+    name: Deploy to Coolify
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Coolify Deployment
+        run: |
+          curl --request GET "${{ secrets.COOLIFY_WEBHOOK }}" \
+            --header "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
